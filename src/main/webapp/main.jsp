@@ -103,7 +103,7 @@
 					<div class="card-body">
 						<h5 class="card-title"></h5>
 						<p class="card-text">
-							<a href="BoardServlet?command=helpfunction">공공서비스 예약서비스 이용 시
+							<a href="BoardServlet?command=help_function">공공서비스 예약서비스 이용 시
 								필수 준수사항을 확인하세요.</a>
 
 						</p>
