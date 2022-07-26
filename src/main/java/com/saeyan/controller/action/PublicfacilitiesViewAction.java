@@ -9,16 +9,22 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
 public class PublicfacilitiesViewAction implements Action {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	
+		String Code = request.getParameter("Code");
+		String page = request.getParameter("p");
+		request.setAttribute("Code", Code);	
+		request.setAttribute("page", page);	
 		
 		String SVCID = request.getParameter("SVCID");
+
+//		ApiExplorerDetail apiexplorer = new ApiExplorerDetail();
+//		apiexplorer.execute(SVCID, request, response);	
 		
 		ApiExplorer apiexplorer = new ApiExplorer();
-		apiexplorer.execute(request, response);
-		
+		apiexplorer.execute(SVCID, request, response);	
 		
 		//캘린더
 		Calendar cal = Calendar.getInstance();
@@ -51,38 +57,17 @@ public class PublicfacilitiesViewAction implements Action {
 	
 		//매월 1일의 요일
 		int dayOfweek = cal.get(Calendar.DAY_OF_WEEK);
+	
 		//월의 최대 일수
 		int lastDay = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
-		
-		
-//		for(int i=0; i<dayOfweek-1;i++){
-//				System.out.print("<td>&nbsp;</td>");
-//			}
-//				
-//		for(int i=1; i<=lastDay;i++){
-//			System.out.print("<td>"+i+"</td>");
-//			;
-//			
-//				if((dayOfweek-1+i)%7==0){
-//					System.out.print("</tr><tr>"); ;
-//				}
-//			}
-//		
-//		for(int i=0; i< (7-(dayOfweek-1+lastDay)%7)%7;i++){
-//			System.out.print("<td>&nbsp;</td>");
-//			}
 		
 		request.setAttribute("year", year);
 		request.setAttribute("month", month);
 		request.setAttribute("dayOfweek", dayOfweek);
 		request.setAttribute("lastDay", lastDay);
-		
-		
-		
-		
+
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/public/publicView.jsp");
 		dispatcher.forward(request, response);
-		
 	}
 	
 }

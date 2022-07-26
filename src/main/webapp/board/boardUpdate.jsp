@@ -17,21 +17,21 @@
 	</c:if>
 	
 	<div class="container">
-		<form enctype="multipart/form-data" name="frm" method="post"
-			action="BoardServlet?command=board_update">
+		<form class="form-inline mt-3" name="frm" method="post" action="BoardServlet" enctype="multipart/form-data">
+			<input type="hidden" name="command" value="board_update">
 			<input type="hidden" name="bNum" value="${board.bNum }">
 			<table class="table table-bordered table-hover"
 				style="text-align: center; border: 1px solid #dddddd">
 				<thead>
 					<tr>
-						<th colspan="4"><h4>게시글 수정</h4></th>
+						<th colspan="4"><h4>공지사항 수정</h4></th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr>
 						<td><h5>작성자</h5></td>
 						<td style="width: 110px;"><input type="text" size="12"
-							name="name" value="${loginUser.userid }" readonly>*필수</td>
+							name="userid" value="${loginUser.userid }" readonly>*필수</td>
 					</tr>
 					<tr>
 						<td><h5>제목</h5></td>
@@ -47,7 +47,11 @@
 						<td style="width: 110px;"><h5>파일업로드</h5></td>
 						<td colspan="2">
 							<div class="input-droup col-xs-12">
-								<input type="file" name="pictureUrl">
+							<!-- <input type="file" name="pictureUrl"> -->
+							<input type="file" name = "uploadFile01"><br>
+							<input type="file" name = "uploadFile02"><br>
+							<input type="file" name = "uploadFile03"><br>
+							(주의사항 : 이미지를 변경하고자 할때만 선택하시오)
 							</div>
 						</td>
 					</tr>

@@ -19,4 +19,4 @@ public class BoardDeleteAction implements Action {
 		
 		new BoardListAction().execute(request, response);
 	}
-}
+} 

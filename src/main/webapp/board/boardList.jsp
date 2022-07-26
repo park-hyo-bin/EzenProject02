@@ -13,7 +13,8 @@
 </head>
 <body>
 
-	<form action="BoardServlet?command=board_list" method="post" name="frm">
+	<form class="form-inline mt-3" name="frm" method="post" action="BoardServlet">
+			<input type="hidden" name="command" value="board_list">
 		<div class="container">
 			<div class="search-form margin-top first align-right">
 
@@ -29,7 +30,7 @@
 						placeholder="내용을 입력하세요" value="${param.q }" /> <input
 						class="btn btn-search" type="submit" value="검색" />
 				</fieldset>
-
+					<div><p>총 ${count }건 입니다.</p></div>
 			</div>
 
 
@@ -52,8 +53,7 @@
 								<td><a
 									href="BoardServlet?command=board_view&bNum=${board.bNum }">${board.bTitle }</a></td>
 								<td>${board.userid }</td>
-								<td><fmt:formatDate pattern="yyyy-MM-dd"
-										value="${board.writedate }" /></td>
+								<td><fmt:formatDate pattern="yyyy-MM-dd" value="${board.writedate }" /></td>
 								<td><fmt:formatNumber type="number" pattern="#,###"
 										value="${board.readcount }" /></td>
 							</tr>

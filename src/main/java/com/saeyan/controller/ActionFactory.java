@@ -28,6 +28,8 @@ public Action getAction(String command) {
 		action = new LoginAction();
 	} else if(command.equals("jo_in_form")) {
 		action = new JoinFormAction();
+	} else if(command.equals("idCheck")) {
+		action = new IdCheckAction();
 	} else if(command.equals("jo_in")) {
 		action = new JoinAction();
 	} else if(command.equals("member_update_form")) {
@@ -70,19 +72,28 @@ public Action getAction(String command) {
 	
 	else if(command.equals("reservation_write")) {
 		action = new ReservationAction();
-	} 
-	else if(command.equals("reservation_my_form")) {
+	} else if(command.equals("reservation_my_form")) {
 		action = new ReservationMyAction();
 	} else if(command.equals("reservation_delete")) {
 		action = new ReservationDeleteAction();
-	} else if(command.equals("reservation_view")) {
-		action = new ReservationViewAction();
 	} 
+	
+	
+	else if(command.equals("reservation_view")) {
+		action = new ReservationViewAction();
+	} else if(command.equals("helpfunction")) {
+		action = new HelpFunctionAction();
+	} else if(command.equals("question")) {
+		action = new QuestionAction();
+	} 
+
+	return action;
+}
+}
+
+
 
 
 //else if(command.equals("board_check_pass_form")) {
 //action=new BoardCheckPassFormAction();
 //}
-	return action;
-}
-}

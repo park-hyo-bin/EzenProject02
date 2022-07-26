@@ -22,7 +22,7 @@ public class BoardViewAction implements Action {
 		
 		BoardDAO bDao = BoardDAO.getInstance();
 		
-		bDao.updateReadCount(bNum);
+//		bDao.updateReadCount(bNum);
 		
 		BoardVo bVo = bDao.selectOneBoardByNum(bNum);
 

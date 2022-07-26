@@ -6,6 +6,7 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.saeyan.dao.BookDAO;
 
@@ -18,7 +19,8 @@ public class ReservationDeleteAction implements Action {
 		BookDAO rDao = BookDAO.getInstance();
 		rDao.deleteReservation(rNum);
 		
-		String userid = request.getParameter("userid");
+		HttpSession session = request.getSession();
+		String userid = (String) session.getAttribute("USERID");
 		
 		String sql = "/BoardServlet?command=reservation_my_form&userid="+ userid;
 		RequestDispatcher dispatcher = request.getRequestDispatcher(sql);

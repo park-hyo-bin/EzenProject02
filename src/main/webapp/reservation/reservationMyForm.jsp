@@ -18,6 +18,7 @@
 	</c:if>
 
 	<section class="container">
+	<h5>${loginUser.name}(${loginUser.userid})님의 예약 내역</h5>
 		<div class="row">
 
 			<c:forEach var="RLi" items="${RLi }">
@@ -28,19 +29,15 @@
 							<p class="card-text">${RLi.publicName}</p>
 						</div>
 						<div class="card-body">
-							<span style="color: red;">이용날짜:${RLi.svcDate}</span>
+							<span style="color: red;">이용날짜:${RLi.svcDate}<br></span>
+							<span>예약날짜:<fmt:formatDate  pattern="yyyy-MM-dd" value="${RLi.rDate}" /><br></span>
 							<div>
-								
-								<form name="frm" method="post" action="BoardServlet?command=reservation_delete">
-											<input type="hidden" name="userid" value="${loginUser.userid}">
+								<form class="form-inline mt-3" name="frm" method="post" action="BoardServlet">
+								<input type="hidden" name="command" value="reservation_delete">
+											<input type="hidden" name="userid" value="${loginUser.userid}">		
 											<input type="hidden" name="rNum" value="${RLi.rNum }">
 											<button class="btn btn-danger modify" onclick="return confirm('취소하시겠습니까?')"  type="submit">예약 취소</button>
 								</form>
-								
-								
-							<a class="btn btn-primary mx-1 mt-2 eBtn" data-toggle="modal" id="detailbutton"
-								href= "BoardServlet?command=reservation_view&rNum=${RLi.rNum }" >상세보기+</a>
-									
 							</div>
 							<div class="col-4 text-right"></div>
 						</div>

@@ -21,7 +21,7 @@ public class BoardDAO {
 	}
 	
 	public void insertBoard(BoardVo bVo) {
-		String sql = "insert into pjboard(" + "bnum, btitle, name, bcontent, pictureUrl)"+ "values(pjboard_seq.nextval, ?,?,?,?)";
+		String sql = "insert into pjboard(" + "bnum, btitle, userid, bcontent, uploadFile01, uploadFile02, uploadFile03)"+ "values(pjboard_seq.nextval, ?,?,?,?,?,?)";
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		try {
@@ -30,7 +30,9 @@ public class BoardDAO {
 			pstmt.setString(1, bVo.getbTitle());
 			pstmt.setString(2, bVo.getUserid());
 			pstmt.setString(3, bVo.getbContent());
-			pstmt.setString(4, bVo.getPictureUrl());
+			pstmt.setString(4, bVo.getUploadFile01());
+			pstmt.setString(5, bVo.getUploadFile02());
+			pstmt.setString(6, bVo.getUploadFile03());
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -77,9 +79,11 @@ public class BoardDAO {
 					bVo.setUserid(rs.getString("userid"));
 					bVo.setbTitle(rs.getString("bTitle"));
 					bVo.setbContent(rs.getString("bContent"));
-					bVo.setPictureUrl(rs.getString("pictureUrl"));
 					bVo.setWritedate(rs.getTimestamp("writedate"));
 					bVo.setReadcount(rs.getInt("readcount"));
+					bVo.setUploadFile01(rs.getString("uploadFile01"));
+					bVo.setUploadFile02(rs.getString("uploadFile02"));
+					bVo.setUploadFile03(rs.getString("uploadFile03"));
 				
 					
 				}
@@ -169,9 +173,11 @@ public class BoardDAO {
 				bVo.setUserid(rs.getString("userid"));
 				bVo.setbTitle(rs.getString("bTitle"));
 				bVo.setbContent(rs.getString("bContent"));
-				bVo.setPictureUrl(rs.getString("pictureUrl"));
 				bVo.setWritedate(rs.getTimestamp("writedate"));
 				bVo.setReadcount(rs.getInt("readcount"));
+				bVo.setUploadFile01(rs.getString("uploadFile01"));
+				bVo.setUploadFile02(rs.getString("uploadFile02"));
+				bVo.setUploadFile03(rs.getString("uploadFile03"));
 			
 				list.add(bVo);
 			}
@@ -215,6 +221,8 @@ public class BoardDAO {
 		return count;
 	}
 	
+
+	
 	
 	public BoardVo getNextList(int bNum) {
 		BoardVo bVo = null;
@@ -240,8 +248,10 @@ public class BoardDAO {
 				bVo.setUserid(rs.getString(2));
 				bVo.setbTitle(rs.getString(3));
 				bVo.setbContent(rs.getString(4));
-				bVo.setPictureUrl(rs.getString(5));
-				bVo.setWritedate(rs.getTimestamp(6));
+				bVo.setWritedate(rs.getTimestamp(5));
+				bVo.setUploadFile01(rs.getString(7));
+				bVo.setUploadFile02(rs.getString(8));
+				bVo.setUploadFile03(rs.getString(9));
 	
 			}
 	}catch (Exception e) {
@@ -274,8 +284,10 @@ public class BoardDAO {
 				bVo.setUserid(rs.getString(2));
 				bVo.setbTitle(rs.getString(3));
 				bVo.setbContent(rs.getString(4));
-				bVo.setPictureUrl(rs.getString(5));
-				bVo.setWritedate(rs.getTimestamp(6));
+				bVo.setWritedate(rs.getTimestamp(5));
+				bVo.setUploadFile01(rs.getString(7));
+				bVo.setUploadFile02(rs.getString(8));
+				bVo.setUploadFile03(rs.getString(9));
 	
 			}
 	}catch (Exception e) {
@@ -284,10 +296,46 @@ public class BoardDAO {
 		return bVo;
 	}
 	
-	
-	
-	
-	
+	public List<BoardVo> getNewBoardList(){//메인화면의 공지사항 목록
+		List<BoardVo> list = new ArrayList<>();
+		
+		String sql =  
+				"SELECT * From ( "
+				+ " select Rownum num, newpj.* "
+				+ " FROM (select * FROM pjboard ORDER BY writedate desc) newpj "
+				+ ") "
+				+ " where num between 1 and 5";
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			conn = DBManager.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				BoardVo bVo = new BoardVo();
+				bVo.setbNum(rs.getInt("bNum"));
+				bVo.setUserid(rs.getString("userid"));
+				bVo.setbTitle(rs.getString("bTitle"));
+				bVo.setbContent(rs.getString("bContent"));
+				bVo.setWritedate(rs.getTimestamp("writedate"));
+				bVo.setReadcount(rs.getInt("readcount"));
+				bVo.setUploadFile01(rs.getString("uploadFile01"));
+				bVo.setUploadFile02(rs.getString("uploadFile02"));
+				bVo.setUploadFile03(rs.getString("uploadFile03"));
+			
+				list.add(bVo);
+			}
+	}catch (Exception e) {
+		e.printStackTrace();
+	}
+	return list;
+
+}
 
 	
 }

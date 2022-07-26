@@ -1,0 +1,15 @@
+@charset "UTF-8";
+
+
+#calendar {
+	border: 1px solid gray;
+	border-collapse: collapse;
+}
+
+#calendar th {
+	width: 40px;
+	height: 40px;
+	border: 1px solid gray;
+	text-align: left;
+	position: relative;
+}
